@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
 
 export default function Section({ datum: { title, article } }) {
-  const [display, setDisplay] = useState('none');
-  const [button, setButton] = useState('block');
+  const [boolVal, toggleVal] = useState(true);
 
   const toggleDisplay = () => {
-    setDisplay(display === 'none' ? 'block' : 'none');
-    setButton(button === 'none' ? 'block' : 'none')
-  }
+    toggleVal(!boolVal);
+    console.log(boolVal);
+  };
+
+  const display = boolVal => (boolVal ? 'none' : 'block');
+
+  const displaySection = boolVal => `section${boolVal ? '' : ' open'}`;
 
   return (
-    <section className="section open">
-      <button style={{display: button}}>toggle</button>
-      <h3 className="sectionhead" onClick={toggleDisplay}>{title}</h3>
-      <div className="articlewrap" style={{display: display}}>
+    <section className={displaySection(boolVal)}>
+      <button />
+      <h3 className="sectionhead" onClick={toggleDisplay}>
+        {title}
+      </h3>
+      <div className="articlewrap" style={{ display: display(boolVal) }}>
         <div className="article">{article}</div>
       </div>
     </section>
